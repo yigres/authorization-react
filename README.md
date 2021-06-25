@@ -1,0 +1,2 @@
+# Login and password authentication in SPA
+This application implements authorization in a real SPA (single-page application). The idea is that when a valid login-password pair is received, the server returns a token that is stored in local storage and sent to the server with each client request. The application consists of the main, public and private pages, as well as a page with a login form. Used: hooks API and libraries react-router-dom, react-bootstrap, formik.
