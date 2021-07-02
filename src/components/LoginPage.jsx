@@ -17,19 +17,21 @@ const LoginPage = () => {
     },
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
-      // localStorage.setItem('key', '123');
       // const host = 'http://localhost';
       const sessionUrl = routes.loginPath();
-      console.log(sessionUrl);
-      console.log(values.login, values.password);
+      // console.log(sessionUrl);
+      // console.log(values.login, values.password);
       const auth = {
         username: values.username,
         password: values.password,
       };
 
       axios.post(sessionUrl, auth)
-        .then(() => {
+        .then((response) => {
           console.log('Authenticated');
+          const { token } = response.data;
+          localStorage.setItem('token', token);
+          console.log(token);
 
           const errorMsg = document.querySelector('.invalid-feedback');
           errorMsg.classList.remove('d-block');
