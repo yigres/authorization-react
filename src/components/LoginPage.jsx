@@ -12,26 +12,32 @@ const LoginPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      login: '',
+      username: '',
       password: '',
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       // localStorage.setItem('key', '123');
       // const host = 'http://localhost';
       const sessionUrl = routes.loginPath();
       console.log(sessionUrl);
       console.log(values.login, values.password);
       const auth = {
-        login: values.login,
-        password: values.passord,
+        username: values.username,
+        password: values.password,
       };
 
-      axios.post(sessionUrl, {}, { auth })
+      axios.post(sessionUrl, auth)
         .then(() => {
           console.log('Authenticated');
+
+          const errorMsg = document.querySelector('.invalid-feedback');
+          errorMsg.classList.remove('d-block');
         }).catch(() => {
           console.log('Error on Authentication');
+
+          const errorMsg = document.querySelector('.invalid-feedback');
+          errorMsg.classList.add('d-block');
         });
     },
   });
@@ -42,9 +48,9 @@ const LoginPage = () => {
 
   return (
     <Form onSubmit={formik.handleSubmit}>
-      <Form.Group controlId="login">
+      <Form.Group controlId="username">
         <Form.Label>Username</Form.Label>
-        <Form.Control type="text" placeholder="username" ref={textInput} onChange={formik.handleChange} value={formik.values.login} />
+        <Form.Control type="text" placeholder="username" ref={textInput} onChange={formik.handleChange} value={formik.values.username} />
       </Form.Group>
       <Form.Group controlId="password">
         <Form.Label>Password</Form.Label>
